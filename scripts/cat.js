@@ -1,13 +1,26 @@
 class PixelCat {
   constructor() {
     this.isEnabled = true;
-    this.createCatElement();
-    this.initializeEventListeners();
     this.lastActivity = Date.now();
     this.currentState = 'idle';
     this.infoState = 0;
     this.messageTimeout = null;
     this.currentPosition = 'bottom-right'; // Default position
+
+    // Initialize cat after loading position
+    this.initialize();
+  }
+
+  async initialize() {
+    // Load saved position first
+    await this.loadSavedPosition();
+    
+    // Then create and set up the cat
+    this.createCatElement();
+    this.initializeEventListeners();
+    
+    // Apply the loaded position
+    this.setPosition(this.currentPosition);
   }
 
   // Create template function for ASCII art
@@ -182,7 +195,9 @@ class PixelCat {
   }
 
   setPosition(position) {
-    this.currentPosition = position; // Store the position
+    this.currentPosition = position;
+    this.savePosition(position); // Save when position changes
+    
     const positions = {
       'bottom-right': { 
         bottom: '20px', 
@@ -215,14 +230,14 @@ class PixelCat {
         textAlign: 'left'
       },
       'top-right': { 
-        top: '20px', 
+        top: '80px', 
         right: '20px', 
         bottom: 'auto', 
         left: 'auto',
         textAlign: 'right'
       },
       'top-left': { 
-        top: '20px', 
+        top: '80px', 
         left: '20px', 
         bottom: 'auto', 
         right: 'auto',
@@ -239,6 +254,18 @@ class PixelCat {
     if (preElement) {
       preElement.style.textAlign = pos.textAlign;
     }
+  }
+
+  // Add methods to save and load position
+  async loadSavedPosition() {
+    const result = await chrome.storage.local.get('catPosition');
+    if (result.catPosition) {
+      this.currentPosition = result.catPosition;
+    }
+  }
+
+  async savePosition(position) {
+    await chrome.storage.local.set({ catPosition: position });
   }
 }
 
