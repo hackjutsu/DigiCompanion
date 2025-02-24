@@ -11,23 +11,25 @@ class PixelCat {
 
   // Create template function for ASCII art
   getCatTemplate(text = '') {
-    // Right-align all content
+    // Define cat art with consistent spacing
     const catArt = [
-      '  /\\_/\\  ',
-      ' ( o.o ) ',
-      '  > ^ <  '
+      '/\\_/\\',
+      '(o.o)',
+      '> ^ <'
     ];
     
+    // Add padding based on alignment
+    const isLeftAligned = this.catElement?.style.textAlign === 'left';
+    const padding = isLeftAligned ? '  ' : '  '; // Same padding for both sides
+    const paddedCat = catArt.map(line => isLeftAligned ? line + padding : padding + line);
+    
     if (text) {
-      // For single line messages, show next to the cat
-      if (!text.includes('\n')) {
-        return `<pre>${text}\n\n ${catArt.join('\n')}</pre>`;
-      }
-      // For multi-line messages (like IP info), show above the cat
-      return `<pre>${text}\n\n${catArt.join('\n')}</pre>`;
+      // Add consistent padding to text
+      const paddedText = isLeftAligned ? text + padding : padding + text;
+      return `<pre>${paddedText}\n\n${paddedCat.join('\n')}</pre>`;
     }
     
-    return `<pre>${catArt.join('\n')}</pre>`;
+    return `<pre>${paddedCat.join('\n')}</pre>`;
   }
 
   createCatElement() {
@@ -132,7 +134,7 @@ class PixelCat {
         
         this.infoState++;
       } catch (error) {
-        this.catElement.innerHTML = this.getCatTemplate('Error getting info 😢');
+        this.catElement.innerHTML = this.getCatTemplate('Error getting info');
       }
       
       this.messageTimeout = setTimeout(() => {
@@ -180,16 +182,61 @@ class PixelCat {
 
   setPosition(position) {
     const positions = {
-      'bottom-right': { bottom: '20px', right: '20px', top: 'auto', left: 'auto' },
-      'bottom-left': { bottom: '20px', left: '20px', top: 'auto', right: 'auto' },
-      'middle-right': { top: '50%', right: '20px', bottom: 'auto', left: 'auto', transform: 'translateY(-50%)' },
-      'middle-left': { top: '50%', left: '20px', bottom: 'auto', right: 'auto', transform: 'translateY(-50%)' },
-      'top-right': { top: '20px', right: '20px', bottom: 'auto', left: 'auto' },
-      'top-left': { top: '20px', left: '20px', bottom: 'auto', right: 'auto' }
+      'bottom-right': { 
+        bottom: '20px', 
+        right: '20px', 
+        top: 'auto', 
+        left: 'auto',
+        textAlign: 'right'
+      },
+      'bottom-left': { 
+        bottom: '20px', 
+        left: '20px', 
+        top: 'auto', 
+        right: 'auto',
+        textAlign: 'left'
+      },
+      'middle-right': { 
+        top: '50%', 
+        right: '20px', 
+        bottom: 'auto', 
+        left: 'auto', 
+        transform: 'translateY(-50%)',
+        textAlign: 'right'
+      },
+      'middle-left': { 
+        top: '50%', 
+        left: '20px', 
+        bottom: 'auto', 
+        right: 'auto', 
+        transform: 'translateY(-50%)',
+        textAlign: 'left'
+      },
+      'top-right': { 
+        top: '20px', 
+        right: '20px', 
+        bottom: 'auto', 
+        left: 'auto',
+        textAlign: 'right'
+      },
+      'top-left': { 
+        top: '20px', 
+        left: '20px', 
+        bottom: 'auto', 
+        right: 'auto',
+        textAlign: 'left'
+      }
     };
 
     const pos = positions[position];
     Object.assign(this.catElement.style, pos);
+    
+    // Update both the container and pre element alignment
+    this.catElement.style.textAlign = pos.textAlign;
+    const preElement = this.catElement.querySelector('pre');
+    if (preElement) {
+      preElement.style.textAlign = pos.textAlign;
+    }
   }
 }
 
