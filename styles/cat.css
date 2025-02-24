@@ -35,6 +35,7 @@
   background: transparent;
   box-shadow: none;
   outline: none;
+  text-align: right;
 }
 
 .pixel-cat:hover {
@@ -55,4 +56,9 @@
 
 .pixel-cat.waving {
   animation: wave 0.5s;
+}
+
+.pixel-cat pre {
+  margin: 0;
+  text-align: right;
 } 

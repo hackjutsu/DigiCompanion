@@ -7,6 +7,9 @@
     "activeTab",
     "storage"
   ],
+  "host_permissions": [
+    "https://api.ipify.org/*"
+  ],
   "action": {
     "default_icon": {
       "16": "images/icon16.png",

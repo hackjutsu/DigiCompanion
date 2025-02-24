@@ -5,6 +5,29 @@ class PixelCat {
     this.initializeEventListeners();
     this.lastActivity = Date.now();
     this.currentState = 'idle';
+    this.infoState = 0;
+    this.messageTimeout = null;
+  }
+
+  // Create template function for ASCII art
+  getCatTemplate(text = '') {
+    // Right-align all content
+    const catArt = [
+      '  /\\_/\\  ',
+      ' ( o.o ) ',
+      '  > ^ <  '
+    ];
+    
+    if (text) {
+      // For single line messages, show next to the cat
+      if (!text.includes('\n')) {
+        return `<pre>${text}\n\n ${catArt.join('\n')}</pre>`;
+      }
+      // For multi-line messages (like IP info), show above the cat
+      return `<pre>${text}\n\n${catArt.join('\n')}</pre>`;
+    }
+    
+    return `<pre>${catArt.join('\n')}</pre>`;
   }
 
   createCatElement() {
@@ -15,12 +38,7 @@ class PixelCat {
     // Create cat element with ASCII art
     this.catElement = document.createElement('div');
     this.catElement.className = 'pixel-cat';
-    this.catElement.innerHTML =
-`<pre>
- /\\_/\\  
-( o.o ) 
- > ^ <
-</pre>`;
+    this.catElement.innerHTML = this.getCatTemplate();
 
     // Append elements
     this.container.appendChild(this.catElement);
@@ -42,16 +60,76 @@ class PixelCat {
     });
 
     // Click event
-    this.catElement.addEventListener('click', () => {
+    this.catElement.addEventListener('click', async () => {
       if (!this.isEnabled) return;
       
-      // Add waving animation
       this.catElement.classList.add('waving');
       
-      // Remove waving class after animation completes
-      setTimeout(() => {
+      if (this.messageTimeout) {
+        clearTimeout(this.messageTimeout);
+      }
+      
+      try {
+        // Cycle through different info
+        if (!this.infoState) this.infoState = 0;
+        
+        switch(this.infoState % 8) {
+          case 0:
+            // Show IP
+            this.catElement.innerHTML = this.getCatTemplate('Loading IP...');
+            const response = await fetch('https://api.ipify.org?format=json');
+            const data = await response.json();
+            this.catElement.innerHTML = this.getCatTemplate(`IP: ${data.ip}`);
+            break;
+          case 1:
+            // Show time
+            this.catElement.innerHTML = this.getCatTemplate(`Time: ${new Date().toLocaleTimeString()}`);
+            break;
+          case 2:
+            // Show resolution
+            this.catElement.innerHTML = this.getCatTemplate(`Screen: ${window.screen.width}x${window.screen.height}`);
+            break;
+          case 3:
+            // Show platform
+            this.catElement.innerHTML = this.getCatTemplate(`Platform: ${navigator.platform}`);
+            break;
+          case 4:
+            // Show language
+            this.catElement.innerHTML = this.getCatTemplate(`Language: ${navigator.language}`);
+            break;
+          case 5:
+            // Show battery
+            if (navigator.getBattery) {
+              const battery = await navigator.getBattery();
+              const level = Math.round(battery.level * 100);
+              this.catElement.innerHTML = this.getCatTemplate(`Battery: ${level}%`);
+            }
+            break;
+          case 6:
+            // Show network
+            const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+            if (connection) {
+              this.catElement.innerHTML = this.getCatTemplate(`Network: ${connection.effectiveType}`);
+            }
+            break;
+          case 7:
+            // Show memory
+            if (performance.memory) {
+              const usedMemory = Math.round(performance.memory.usedJSHeapSize / (1024 * 1024));
+              this.catElement.innerHTML = this.getCatTemplate(`Memory: ${usedMemory}MB`);
+            }
+            break;
+        }
+        
+        this.infoState++;
+      } catch (error) {
+        this.catElement.innerHTML = this.getCatTemplate('Error getting info 😢');
+      }
+      
+      this.messageTimeout = setTimeout(() => {
         this.catElement.classList.remove('waving');
-      }, 500); // Match the animation duration
+        this.catElement.innerHTML = this.getCatTemplate();
+      }, 5000);
     });
 
     // Idle detection
@@ -102,4 +180,4 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   } else if (request.action === 'getState') {
     sendResponse({ isEnabled: pixelCat.isEnabled });
   }
-}); 
+});
