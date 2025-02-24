@@ -15,13 +15,12 @@ class PixelCat {
     // Create cat element with ASCII art
     this.catElement = document.createElement('div');
     this.catElement.className = 'pixel-cat';
-    this.catElement.innerHTML = `
-      <pre>
-        /\\_/\\  
-       ( o.o ) 
-        > ^ <
-      </pre>
-    `;
+    this.catElement.innerHTML =
+`<pre>
+ /\\_/\\  
+( o.o ) 
+ > ^ <
+</pre>`;
 
     // Append elements
     this.container.appendChild(this.catElement);

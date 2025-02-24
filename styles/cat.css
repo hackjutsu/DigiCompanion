@@ -29,7 +29,7 @@
   line-height: 1;
   white-space: pre;
   overflow: hidden;
-  width: auto;
+  width: fit-content;
   height: auto;
   border: none;
   background: transparent;
