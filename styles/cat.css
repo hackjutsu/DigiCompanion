@@ -22,12 +22,19 @@
   position: fixed;
   bottom: 20px;
   right: 20px;
-  width: 64px;
-  height: 64px;
   z-index: 9999;
   cursor: pointer;
-  image-rendering: pixelated;
-  transition: transform 0.3s ease;
+  font-family: monospace;
+  font-size: 12px;
+  line-height: 1;
+  white-space: pre;
+  overflow: hidden;
+  width: auto;
+  height: auto;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  outline: none;
 }
 
 .pixel-cat:hover {

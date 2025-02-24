@@ -12,11 +12,16 @@ class PixelCat {
     this.container = document.createElement('div');
     this.container.className = 'pixel-cat-container';
 
-    // Create cat element
-    this.catElement = document.createElement('img');
+    // Create cat element with ASCII art
+    this.catElement = document.createElement('div');
     this.catElement.className = 'pixel-cat';
-    this.catElement.src = chrome.runtime.getURL('images/cat-idle.png');
-    this.catElement.alt = 'Pixel Cat';
+    this.catElement.innerHTML = `
+      <pre>
+        /\\_/\\  
+       ( o.o ) 
+        > ^ <
+      </pre>
+    `;
 
     // Create speech bubble
     this.speechBubble = document.createElement('div');
