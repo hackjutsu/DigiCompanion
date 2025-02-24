@@ -23,13 +23,8 @@ class PixelCat {
       </pre>
     `;
 
-    // Create speech bubble
-    this.speechBubble = document.createElement('div');
-    this.speechBubble.className = 'cat-speech-bubble';
-
     // Append elements
     this.container.appendChild(this.catElement);
-    this.container.appendChild(this.speechBubble);
     document.body.appendChild(this.container);
   }
 
@@ -53,7 +48,6 @@ class PixelCat {
       
       // Add waving animation
       this.catElement.classList.add('waving');
-      this.showMessage('Hi there! 👋');
       
       // Remove waving class after animation completes
       setTimeout(() => {
@@ -91,15 +85,6 @@ class PixelCat {
     if (state !== 'idle') {
         this.catElement.classList.add(state);
     }
-  }
-
-  showMessage(text, duration = 3000) {
-    this.speechBubble.textContent = text;
-    this.speechBubble.style.display = 'block';
-    
-    setTimeout(() => {
-      this.speechBubble.style.display = 'none';
-    }, duration);
   }
 
   toggle() {
