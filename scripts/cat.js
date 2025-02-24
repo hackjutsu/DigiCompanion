@@ -1,29 +1,29 @@
-class PixelDino {
+class PixelCat {
   constructor() {
     this.isEnabled = true;
-    this.createDinoElement();
+    this.createCatElement();
     this.initializeEventListeners();
     this.lastActivity = Date.now();
     this.currentState = 'idle';
   }
 
-  createDinoElement() {
+  createCatElement() {
     // Create container
     this.container = document.createElement('div');
-    this.container.className = 'pixel-dino-container';
+    this.container.className = 'pixel-cat-container';
 
-    // Create dino element
-    this.dinoElement = document.createElement('img');
-    this.dinoElement.className = 'pixel-dino';
-    this.dinoElement.src = chrome.runtime.getURL('images/dino-idle.png');
-    this.dinoElement.alt = 'Pixel Dinosaur';
+    // Create cat element
+    this.catElement = document.createElement('img');
+    this.catElement.className = 'pixel-cat';
+    this.catElement.src = chrome.runtime.getURL('images/cat-idle.png');
+    this.catElement.alt = 'Pixel Cat';
 
     // Create speech bubble
     this.speechBubble = document.createElement('div');
-    this.speechBubble.className = 'dino-speech-bubble';
+    this.speechBubble.className = 'cat-speech-bubble';
 
     // Append elements
-    this.container.appendChild(this.dinoElement);
+    this.container.appendChild(this.catElement);
     this.container.appendChild(this.speechBubble);
     document.body.appendChild(this.container);
   }
@@ -43,9 +43,17 @@ class PixelDino {
     });
 
     // Click event
-    this.dinoElement.addEventListener('click', () => {
+    this.catElement.addEventListener('click', () => {
       if (!this.isEnabled) return;
+      
+      // Add waving animation
+      this.catElement.classList.add('waving');
       this.showMessage('Hi there! 👋');
+      
+      // Remove waving class after animation completes
+      setTimeout(() => {
+        this.catElement.classList.remove('waving');
+      }, 500); // Match the animation duration
     });
 
     // Idle detection
@@ -70,13 +78,14 @@ class PixelDino {
 
   setState(state) {
     this.currentState = state;
-    const stateImages = {
-      idle: 'dino-idle.png',
-      thinking: 'dino-thinking.png',
-      sleeping: 'dino-sleeping.png'
-    };
     
-    this.dinoElement.src = chrome.runtime.getURL(`images/${stateImages[state]}`);
+    // Remove all animation classes first
+    this.catElement.classList.remove('thinking', 'sleeping', 'waving');
+    
+    // Add the new animation class
+    if (state !== 'idle') {
+        this.catElement.classList.add(state);
+    }
   }
 
   showMessage(text, duration = 3000) {
@@ -94,12 +103,12 @@ class PixelDino {
   }
 }
 
-// Initialize the dinosaur
-const pixelDino = new PixelDino();
+// Initialize the cat
+const pixelCat = new PixelCat();
 
 // Listen for toggle messages from the extension
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === 'toggle') {
-    pixelDino.toggle();
+    pixelCat.toggle();
   }
 }); 
