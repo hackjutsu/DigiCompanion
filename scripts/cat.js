@@ -73,7 +73,7 @@ class PixelCat {
         // Cycle through different info
         if (!this.infoState) this.infoState = 0;
         
-        switch(this.infoState % 8) {
+        switch(this.infoState % 9) {
           case 0:
             // Show IP
             this.catElement.innerHTML = this.getCatTemplate('Loading IP...');
@@ -109,7 +109,11 @@ class PixelCat {
             // Show network
             const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
             if (connection) {
-              this.catElement.innerHTML = this.getCatTemplate(`Network: ${connection.effectiveType}`);
+              // Get more detailed network info
+              const type = connection.type || 'unknown';
+              const downlink = connection.downlink ? `${connection.downlink} Mbps` : '';
+              const info = [type, downlink].filter(Boolean).join(' ');
+              this.catElement.innerHTML = this.getCatTemplate(`Network: ${info}`);
             }
             break;
           case 7:
@@ -118,6 +122,11 @@ class PixelCat {
               const usedMemory = Math.round(performance.memory.usedJSHeapSize / (1024 * 1024));
               this.catElement.innerHTML = this.getCatTemplate(`Memory: ${usedMemory}MB`);
             }
+            break;
+          case 8:
+            // Show device type
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            this.catElement.innerHTML = this.getCatTemplate(`Device: ${isMobile ? 'Mobile' : 'Desktop'}`);
             break;
         }
         
