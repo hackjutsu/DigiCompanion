@@ -111,9 +111,11 @@ class PixelCat {
 // Initialize the cat
 const pixelCat = new PixelCat();
 
-// Listen for toggle messages from the extension
+// Listen for messages from the extension
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === 'toggle') {
     pixelCat.toggle();
+  } else if (request.action === 'getState') {
+    sendResponse({ isEnabled: pixelCat.isEnabled });
   }
 }); 
