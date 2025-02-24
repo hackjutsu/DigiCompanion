@@ -7,6 +7,7 @@ class PixelCat {
     this.currentState = 'idle';
     this.infoState = 0;
     this.messageTimeout = null;
+    this.currentPosition = 'bottom-right'; // Default position
   }
 
   // Create template function for ASCII art
@@ -181,6 +182,7 @@ class PixelCat {
   }
 
   setPosition(position) {
+    this.currentPosition = position; // Store the position
     const positions = {
       'bottom-right': { 
         bottom: '20px', 
@@ -248,7 +250,10 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === 'toggle') {
     pixelCat.toggle();
   } else if (request.action === 'getState') {
-    sendResponse({ isEnabled: pixelCat.isEnabled });
+    sendResponse({ 
+      isEnabled: pixelCat.isEnabled,
+      position: pixelCat.currentPosition
+    });
   } else if (request.action === 'setPosition') {
     pixelCat.setPosition(request.position);
   }

@@ -1,7 +1,10 @@
-// Update checkbox based on the current state of the cat
+// Update state when popup opens
 chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
   chrome.tabs.sendMessage(tabs[0].id, { action: 'getState' }, (response) => {
-    document.getElementById('enableCat').checked = response.isEnabled;
+    if (response) {
+      document.getElementById('enableCat').checked = response.isEnabled;
+      document.getElementById('catPosition').value = response.position;
+    }
   });
 });
 
