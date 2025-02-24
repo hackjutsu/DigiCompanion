@@ -1,0 +1,45 @@
+.pixel-dino {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 64px;
+  height: 64px;
+  z-index: 9999;
+  cursor: pointer;
+  image-rendering: pixelated;
+  transition: transform 0.3s ease;
+}
+
+.pixel-dino:hover {
+  transform: scale(1.1);
+}
+
+.pixel-dino-container {
+  position: relative;
+}
+
+.dino-speech-bubble {
+  position: absolute;
+  background: white;
+  border: 2px solid #333;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 14px;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  display: none;
+  z-index: 10000;
+}
+
+.dino-speech-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 10px 10px 0;
+  border-style: solid;
+  border-color: white transparent transparent;
+} 
