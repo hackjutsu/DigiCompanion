@@ -12,4 +12,15 @@ document.getElementById('enableCat').addEventListener('change', (e) => {
       action: 'toggle'
     });
   });
+});
+
+// Handle position change
+document.getElementById('catPosition').addEventListener('change', (e) => {
+  const position = e.target.value;
+  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    chrome.tabs.sendMessage(tabs[0].id, {
+      action: 'setPosition',
+      position: position
+    });
+  });
 }); 

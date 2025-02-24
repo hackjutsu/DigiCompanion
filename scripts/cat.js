@@ -177,6 +177,20 @@ class PixelCat {
     this.isEnabled = !this.isEnabled;
     this.container.style.display = this.isEnabled ? 'block' : 'none';
   }
+
+  setPosition(position) {
+    const positions = {
+      'bottom-right': { bottom: '20px', right: '20px', top: 'auto', left: 'auto' },
+      'bottom-left': { bottom: '20px', left: '20px', top: 'auto', right: 'auto' },
+      'middle-right': { top: '50%', right: '20px', bottom: 'auto', left: 'auto', transform: 'translateY(-50%)' },
+      'middle-left': { top: '50%', left: '20px', bottom: 'auto', right: 'auto', transform: 'translateY(-50%)' },
+      'top-right': { top: '20px', right: '20px', bottom: 'auto', left: 'auto' },
+      'top-left': { top: '20px', left: '20px', bottom: 'auto', right: 'auto' }
+    };
+
+    const pos = positions[position];
+    Object.assign(this.catElement.style, pos);
+  }
 }
 
 // Initialize the cat
@@ -188,5 +202,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     pixelCat.toggle();
   } else if (request.action === 'getState') {
     sendResponse({ isEnabled: pixelCat.isEnabled });
+  } else if (request.action === 'setPosition') {
+    pixelCat.setPosition(request.position);
   }
 });

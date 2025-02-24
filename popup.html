@@ -16,6 +16,9 @@
     .toggle-switch input {
       margin-right: 10px;
     }
+    .position-select {
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
@@ -23,6 +26,17 @@
   <div class="toggle-switch">
     <input type="checkbox" id="enableCat" checked>
     <label for="enableCat">Enable Cat</label>
+  </div>
+  <div class="position-select">
+    <label>Position:</label>
+    <select id="catPosition">
+      <option value="bottom-right">Bottom Right</option>
+      <option value="bottom-left">Bottom Left</option>
+      <option value="middle-right">Middle Right</option>
+      <option value="middle-left">Middle Left</option>
+      <option value="top-right">Top Right</option>
+      <option value="top-left">Top Left</option>
+    </select>
   </div>
   <script src="popup.js"></script>
 </body>
