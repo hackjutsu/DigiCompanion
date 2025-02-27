@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Pixel Cat Companion",
+  "name": "Digi Companion",
   "version": "1.0.0",
   "description": "A friendly ASCII cat companion that displays system information with a click",
   "permissions": [
@@ -29,4 +29,4 @@
     "48": "images/icon48.png",
     "128": "images/icon128.png"
   }
-} 
+}

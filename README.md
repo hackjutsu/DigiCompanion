@@ -1,8 +1,8 @@
-# ![Pixel Cat Companion](./images/icon32.png) Pixel Cat Companion 
+# ![Digi Companion](./images/icon32.png) Digi Companion
 
 A friendly ASCII cat companion for Chrome that displays system information.
 
-![Pixel Cat Companion](./images/screenshot.png)
+![Digi Companion](./images/screenshot.png)
 
 ## Features
 
@@ -44,4 +44,4 @@ A friendly ASCII cat companion for Chrome that displays system information.
 
 ## License
 
-MIT License 
+MIT License

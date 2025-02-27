@@ -1,7 +1,7 @@
-# Privacy Policy for Pixel Cat Companion
+# Privacy Policy for Digi Companion
 
 ## Overview
-Pixel Cat Companion is a simple browser extension that displays system information. We take your privacy seriously and collect minimal data necessary for the extension to function.
+Digi Companion is a simple browser extension that displays system information. We take your privacy seriously and collect minimal data necessary for the extension to function.
 
 ## Data Collection
 The extension collects the following information only when you click the cat:
@@ -34,4 +34,4 @@ We may update this privacy policy. Any changes will be reflected in the extensio
 ## Contact
 For any privacy concerns, please open an issue on our GitHub repository.
 
-Last updated: February 2024 
+Last updated: February 2024
