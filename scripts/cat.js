@@ -148,7 +148,7 @@ class PixelCat {
         
         this.infoState++;
       } catch (error) {
-        this.catElement.innerHTML = this.getCatTemplate('Error getting info');
+        this.catElement.innerHTML = this.getCatTemplate('Unable to fetch info');
       }
       
       this.messageTimeout = setTimeout(() => {

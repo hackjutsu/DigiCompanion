@@ -1,11 +1,14 @@
 {
   "manifest_version": 3,
   "name": "Pixel Cat Companion",
-  "version": "1.0",
-  "description": "A friendly pixelated cat that reacts to your browsing activity",
+  "version": "1.0.0",
+  "description": "A friendly ASCII cat companion that displays system information with a click",
   "permissions": [
     "activeTab",
     "storage"
+  ],
+  "host_permissions": [
+    "https://api.ipify.org/*"
   ],
   "action": {
     "default_icon": {
