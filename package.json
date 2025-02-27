@@ -1,0 +1,8 @@
+{
+  "name": "pixel-cat-companion",
+  "version": "1.0.0",
+  "description": "A friendly ASCII cat companion for Chrome that displays system information",
+  "author": "Your Name",
+  "license": "MIT",
+  "private": true
+} 
