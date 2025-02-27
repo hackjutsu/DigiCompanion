@@ -1,4 +1,4 @@
-# Pixel Cat Companion
+# ![Pixel Cat Companion](./images/icon32.png) Pixel Cat Companion 
 
 A friendly ASCII cat companion for Chrome that displays system information.
 
