@@ -2,6 +2,8 @@
 
 A friendly ASCII cat companion for Chrome that displays system information.
 
+![Pixel Cat Companion](./images/screenshot.png)
+
 ## Features
 
 - 🐱 Cute ASCII cat that lives in your browser
