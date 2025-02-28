@@ -44,6 +44,10 @@
 
 .pixel-cat-container {
   position: relative;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
 }
 
 .pixel-cat.thinking {
@@ -60,4 +64,25 @@
 
 .pixel-cat pre {
   margin: 0;
-} 
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* Override Wikipedia and other site styles */
+body .pixel-cat pre,
+.mw-body .pixel-cat pre,
+.mw-body-content .pixel-cat pre,
+.content .pixel-cat pre,
+.article .pixel-cat pre,
+#bodyContent .pixel-cat pre,
+#content .pixel-cat pre {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  outline: none !important;
+  margin: 0 !important;
+}

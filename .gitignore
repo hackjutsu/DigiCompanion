@@ -34,4 +34,5 @@ chrome-extension.log
 
 # Temporary files
 tmp/
-temp/ 
+temp/
+debug/
