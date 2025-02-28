@@ -2,7 +2,7 @@
 
 A friendly ASCII cat companion for Chrome that displays system information.
 
-![Digi Companion](./images/screenshot.png)
+![Digi Companion](./images/screenshot_1.png)
 
 ## Features
 
